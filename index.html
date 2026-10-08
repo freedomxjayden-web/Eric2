@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我們的澳門故事 - 高家平凡而偉大的日常</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        macau: {
+                            green: '#007A5E',
+                            gold: '#D4AF37',
+                            sand: '#F7F4EF',
+                            warmRed: '#C84B31',
+                            softBlue: '#2A6F97'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Microsoft JhengHei', 'PingFang TC', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .gradient-macau {
+            background: linear-gradient(135deg, #007A5E 0%, #1A4D3E 100%);
+        }
+        .gradient-warm {
+            background: linear-gradient(135deg, #FFF6E9 0%, #FFEFD5 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .tab-btn.active {
+            border-bottom: 4px solid #007A5E;
+            color: #007A5E;
+            font-weight: bold;
+        }
+        .pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="bg-[#F8F6F0] text-gray-800 font-sans min-h-screen flex flex-col selection:bg-macau-green selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 glass-card shadow-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-macau-green text-white flex items-center justify-center font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-house-chimney-heart"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-gray-900 leading-tight">我們的澳門故事</h1>
+                    <p class="text-xs text-gray-500">高家三口 · 平凡而偉大的日常紀事</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <button id="btn-audio-bg" onclick="toggleAudio()" class="px-3 py-1.5 rounded-full bg-emerald-50 text-macau-green hover:bg-emerald-100 text-xs font-medium transition flex items-center gap-1.5 border border-emerald-200">
+                    <i id="audio-icon" class="fa-solid fa-volume-xmark"></i>
+                    <span id="audio-text">背景音韻</span>
+                </button>
+                <a href="#blessings" class="px-3 py-1.5 rounded-full bg-macau-green text-white hover:bg-emerald-800 text-xs font-medium transition shadow-sm">
+                    <i class="fa-solid fa-heart mr-1"></i>送上祝福
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Announcement Banner -->
+    <section class="gradient-macau text-white py-12 px-4 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl select-none">
+            <i class="fa-solid fa-bus-simple"></i>
+        </div>
+        <div class="max-w-4xl mx-auto text-center relative z-10 space-y-4">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/20 text-emerald-100 text-xs font-semibold tracking-wider">
+                澳門街頭的故事 · 溫情記載
+            </span>
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
+                方向盤、溫暖晚餐與陽光般的微笑
+            </h2>
+            <p class="text-emerald-100 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+                穿梭在澳門街巷的巴士司機父親，經營著溫馨小家、悉心照顧家庭的母親，以及帶給全家無盡歡笑與純真力量的「蔥頭」。這是一份關於愛、責任與堅持的澳門本地故事。
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 pt-2 text-xs md:text-sm">
+                <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-location-dot text-macau-gold"></i> 澳門半島 · 氹仔
+                </div>
+                <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-users text-pink-300"></i> 三人溫馨家庭
+                </div>
+                <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-hand-holding-heart text-amber-300"></i> 唐氏綜合症關愛與支持
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Navigation Tabs -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
+        <div class="flex border-b border-gray-300 mb-8 overflow-x-auto scrollbar-none justify-center">
+            <button onclick="switchTab('gao-cirong')" id="tab-gao-cirong" class="tab-btn active px-6 py-3 text-sm md:text-base font-semibold text-gray-600 hover:text-macau-green transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-bus text-lg"></i>
+                <span>高賜榮 <span class="text-xs font-normal opacity-75">(澳門巴士司機)</span></span>
+            </button>
+            <button onclick="switchTab('ma-fengxiang')" id="tab-ma-fengxiang" class="tab-btn px-6 py-3 text-sm md:text-base font-semibold text-gray-600 hover:text-macau-green transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-utensils text-lg"></i>
+                <span>馬鳳香 <span class="text-xs font-normal opacity-75">(家庭主婦)</span></span>
+            </button>
+            <button onclick="switchTab('gao-zicong')" id="tab-gao-zicong" class="tab-btn px-6 py-3 text-sm md:text-base font-semibold text-gray-600 hover:text-macau-green transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-face-smile-beam text-lg"></i>
+                <span>高子聰 <span class="text-xs font-normal opacity-75">(蔥頭 / 高聰)</span></span>
+            </button>
+        </div>
+
+        <!-- PROFILE 1: 高賜榮 (Gao Cirong) -->
+        <section id="person-gao-cirong" class="profile-section space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- Left Avatar & Info Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 flex flex-col items-center text-center space-y-4">
+                    <div class="relative">
+                        <!-- Custom SVG Avatar for Bus Driver -->
+                        <div class="w-36 h-36 rounded-full bg-emerald-100 border-4 border-macau-green flex items-center justify-center overflow-hidden shadow-inner">
+                            <svg class="w-28 h-28 text-macau-green" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                        </div>
+                        <span class="absolute bottom-1 right-1 bg-macau-green text-white p-2 rounded-full shadow-lg text-xs" title="澳門巴士司機">
+                            <i class="fa-solid fa-bus"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900">高賜榮</h3>
+                        <p class="text-macau-green font-medium text-sm">澳門公共巴士資深司機</p>
+                        <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-shield-halved mr-1"></i>從業逾20年 · 安全駕駛守護者</p>
+                    </div>
+
+                    <div class="w-full pt-4 border-t border-gray-100 space-y-3 text-left text-xs text-gray-600">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">日常路線：</span>
+                            <span class="font-semibold text-gray-800">33路 / 25B (關閘 - 亞馬喇 - 路氹)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">駕駛信念：</span>
+                            <span class="font-semibold text-gray-800">穩健平安，帶每位乘客回家</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">家庭角色：</span>
+                            <span class="font-semibold text-gray-800">堅實可靠的父親與丈夫</span>
+                        </div>
+                    </div>
+
+                    <button onclick="openBusSimulator()" class="w-full py-2.5 px-4 bg-macau-green hover:bg-emerald-800 text-white rounded-xl text-xs font-semibold shadow transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-steering-wheel"></i> 體驗「賜榮哥」的一天駕駛
+                    </button>
+                </div>
+
+                <!-- Right Biography & Dynamic Stories -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 space-y-4">
+                        <h4 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                            <i class="fa-solid fa-route text-macau-green"></i> 城市脈絡中的穿梭者
+                        </h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            高賜榮是澳門街頭巷尾再熟悉不過的「巴士哥」。清晨五點，當大多數澳門居民仍在夢鄉時，他已穿上整潔的制服，在巴士總站進行嚴格的車輛安全檢查。
+                        </p>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            對他而言，手中的方向盤承載的不僅是乘客的出行，更是數百個家庭的期待。不論是舊城區窄巷的考驗，還是跨海大橋上的風雨，賜榮哥始終保持專注與耐心。
+                        </p>
+                        <blockquote class="bg-emerald-50 border-l-4 border-macau-green p-4 rounded-r-xl italic text-xs md:text-sm text-emerald-900">
+                            「開巴士要心平氣和，車上很多老人家同小朋友。每當看到乘客平安下車、說一聲『唔該司機』，心裡就覺得這份工作很值得。下了班，最想趕快回家陪阿鳳和蔥頭食飯。」
+                        </blockquote>
+                    </div>
+
+                    <!-- Shift Timeline Card -->
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 space-y-4">
+                        <h4 class="text-base font-bold text-gray-900 flex items-center gap-2">
+                            <i class="fa-solid fa-clock text-macau-gold"></i> 賜榮哥的一天時間表
+                        </h4>
+                        <div class="relative border-l-2 border-emerald-200 ml-3 space-y-6 text-xs text-gray-600">
+                            <div class="ml-6 relative">
+                                <span class="absolute -left-9 top-0 w-6 h-6 rounded-full bg-emerald-100 border-2 border-macau-green text-macau-green flex items-center justify-center text-[10px]">05:00</span>
+                                <h5 class="font-bold text-gray-800">晨光初露 · 車輛出隊</h5>
+                                <p class="text-gray-500 mt-0.5">到達車廠，進行酒精測試、車輛安全檢驗與路線系統設定。</p>
+                            </div>
+                            <div class="ml-6 relative">
+                                <span class="absolute -left-9 top-0 w-6 h-6 rounded-full bg-emerald-100 border-2 border-macau-green text-macau-green flex items-center justify-center text-[10px]">07:30</span>
+                                <h5 class="font-bold text-gray-800">早高峰忙碌穿梭</h5>
+                                <p class="text-gray-500 mt-0.5">載著上班族與學生駛過亞馬喇前地與新馬路，維持平穩與專注。</p>
+                            </div>
+                            <div class="ml-6 relative">
+                                <span class="absolute -left-9 top-0 w-6 h-6 rounded-full bg-emerald-100 border-2 border-macau-green text-macau-green flex items-center justify-center text-[10px]">14:00</span>
+                                <h5 class="font-bold text-gray-800">交班與小休</h5>
+                                <p class="text-gray-500 mt-0.5">返回總站交班，給家裡打個電話，問問「蔥頭」今天過得好不好。</p>
+                            </div>
+                            <div class="ml-6 relative">
+                                <span class="absolute -left-9 top-0 w-6 h-6 rounded-full bg-emerald-100 border-2 border-macau-green text-macau-green flex items-center justify-center text-[10px]">18:30</span>
+                                <h5 class="font-bold text-gray-800">溫馨晚餐時間</h5>
+                                <p class="text-gray-500 mt-0.5">回到家中，享用妻子鳳香煲的熱湯，聽子聰分享今天的畫作。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFILE 2: 馬鳳香 (Ma Fengxiang) -->
+        <section id="person-ma-fengxiang" class="profile-section space-y-8 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- Left Avatar & Info Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 flex flex-col items-center text-center space-y-4">
+                    <div class="relative">
+                        <!-- Custom SVG Avatar for Mother -->
+                        <div class="w-36 h-36 rounded-full bg-amber-100 border-4 border-amber-500 flex items-center justify-center overflow-hidden shadow-inner">
+                            <svg class="w-28 h-28 text-amber-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                        </div>
+                        <span class="absolute bottom-1 right-1 bg-amber-500 text-white p-2 rounded-full shadow-lg text-xs" title="普通家庭主婦">
+                            <i class="fa-solid fa-heart"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900">馬鳳香</h3>
+                        <p class="text-amber-600 font-medium text-sm">全職家庭主婦 · 溫暖港灣締造者</p>
+                        <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-hands-holding-child mr-1"></i>無私奉獻 · 蔥頭最堅實的後盾</p>
+                    </div>
+
+                    <div class="w-full pt-4 border-t border-gray-100 space-y-3 text-left text-xs text-gray-600">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">每日採買：</span>
+                            <span class="font-semibold text-gray-800">紅街市 / 水陸路街市</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">拿手絕活：</span>
+                            <span class="font-semibold text-gray-800">廣式老火靚湯、家用手工點心</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">家庭座右銘：</span>
+                            <span class="font-semibold text-gray-800">一家人平安健康，就是最大幸福</span>
+                        </div>
+                    </div>
+
+                    <button onclick="openRecipeModal()" class="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-semibold shadow transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-kitchen-set"></i> 翻開「鳳香媽媽」的愛心食譜
+                    </button>
+                </div>
+
+                <!-- Right Biography & Cooking Stories -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 space-y-4">
+                        <h4 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                            <i class="fa-solid fa-utensils text-amber-500"></i> 家的溫度，從廚房的煙火氣開始
+                        </h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            馬鳳香是一位普通的澳門家庭主婦，也是這個家最溫柔而強大的核心。三十多年來，她把全部的心血都傾註在家庭中，照顧丈夫賜榮的起居，更是陪伴兒子子聰成長的明燈。
+                        </p>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            面對子聰生來帶有的唐氏綜合症，鳳香媽媽從未抱怨，而是用比常人更多的耐心與愛去引導他。從教他系鞋帶、刷牙，到陪他畫畫、做手工，每一點微小的進步背後，都有鳳香數不清的汗水與微笑。
+                        </p>
+                        <blockquote class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl italic text-xs md:text-sm text-amber-900">
+                            「很多人問我累不累，只要看見子聰對著我笑、喊一聲『媽媽』，或者賜榮回家喝完一大碗湯，所有的辛苦都煙消雲散了。做母親，就是要成為孩子心裡永遠不滅的光。」
+                        </blockquote>
+                    </div>
+
+                    <!-- Mother's Daily Journal -->
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 space-y-4">
+                        <h4 class="text-base font-bold text-gray-900 flex items-center gap-2">
+                            <i class="fa-solid fa-book-open text-amber-600"></i> 鳳香媽媽的育兒與家庭心得
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="p-4 rounded-xl bg-orange-50/60 border border-orange-100 space-y-2">
+                                <div class="font-bold text-amber-800 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-seedling"></i> 用愛陪伴唐寶寶成長
+                                </div>
+                                <p class="text-gray-600 leading-relaxed">
+                                    不要急於求成，多給予正向鼓勵。子聰學畫畫時，哪怕只是畫一個不規則的圓圈，我都會誇他最棒，建立他的自信心。
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-orange-50/60 border border-orange-100 space-y-2">
+                                <div class="font-bold text-amber-800 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-bowl-food"></i> 食療與健康照料
+                                </div>
+                                <p class="text-gray-600 leading-relaxed">
+                                    根據四季氣候調整湯水，比如夏季蓮藕排骨清熱，冬季黨參杞子滋補，確保一家人有充沛的體力面對生活。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFILE 3: 高子聰 (Gao Zicong - Congtou) -->
+        <section id="person-gao-zicong" class="profile-section space-y-8 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- Left Avatar & Info Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 flex flex-col items-center text-center space-y-4">
+                    <div class="relative">
+                        <!-- Custom SVG Avatar for Congtou -->
+                        <div class="w-36 h-36 rounded-full bg-pink-100 border-4 border-pink-400 flex items-center justify-center overflow-hidden shadow-inner">
+                            <svg class="w-28 h-28 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                        </div>
+                        <span class="absolute bottom-1 right-1 bg-pink-500 text-white p-2 rounded-full shadow-lg text-xs" title="純真的小天仙">
+                            <i class="fa-solid fa-palette"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900">高子聰</h3>
+                        <p class="text-pink-600 font-medium text-sm">外號：「蔥頭」 / 高聰</p>
+                        <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-star text-yellow-400 mr-1"></i>唐氏綜合症天使 · 小小小畫家</p>
+                    </div>
+
+                    <div class="w-full pt-4 border-t border-gray-100 space-y-3 text-left text-xs text-gray-600">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">最喜愛的事：</span>
+                            <span class="font-semibold text-gray-800">畫彩色巴士、做手工、聽音樂</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">招牌笑容：</span>
+                            <span class="font-semibold text-gray-800">治癒系燦爛笑臉</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">個人願望：</span>
+                            <span class="font-semibold text-gray-800">搭爸爸開的巴士去環遊澳門</span>
+                        </div>
+                    </div>
+
+                    <button onclick="openGalleryModal()" class="w-full py-2.5 px-4 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-xs font-semibold shadow transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paint-brush"></i> 進入「蔥頭」的色彩畫廊
+                    </button>
+                </div>
+
+                <!-- Right Biography & Down Syndrome Knowledge -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 space-y-4">
+                        <h4 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                            <i class="fa-solid fa-sun text-yellow-500"></i> 「蔥頭」的純真世界：用色彩擁抱生活
+                        </h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            高子聰，大家都親切地叫他「蔥頭」或「高聰」。雖然生來伴隨著第21對染色體的特別印記（唐氏綜合症），但這從未遮擋他眼中那份對世界無邪的光芒。
+                        </p>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            蔥頭對顏色有着天生的敏感與熱愛。在澳門唐氏綜合症協會的藝術工作坊中，他創作了一幅又一幅充滿想像力的畫作。其中他最喜歡畫的就是爸爸開的黃綠色巴士，畫裡的乘客每一個都在笑。
+                        </p>
+                        <blockquote class="bg-pink-50 border-l-4 border-pink-400 p-4 rounded-r-xl italic text-xs md:text-sm text-pink-900">
+                            「爸爸開巴士，媽媽做靚湯，蔥頭畫畫畫！大家都開心！」—— 這就是蔥頭最直接、最純粹的內心宣言。
+                        </blockquote>
+                    </div>
+
+                    <!-- Down Syndrome Awareness Box -->
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-6 space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-bold">
+                                <i class="fa-solid fa-ribbon"></i>
+                            </div>
+                            <h4 class="text-base font-bold text-blue-900">認識唐氏綜合症 (Down Syndrome)</h4>
+                        </div>
+                        <p class="text-xs md:text-sm text-blue-800 leading-relaxed">
+                            唐氏綜合症是一種因細胞染色體異常引起的先天狀況。唐寶寶雖然在語言或學習上速度較慢，但他們通常極具感情、善良純真，且在藝術、音樂或體育方面常常展現獨特的才華。
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2">
+                            <div class="bg-white p-3 rounded-xl shadow-sm border border-blue-100 text-center">
+                                <span class="font-bold text-blue-600 block mb-1">接納與尊重</span>
+                                <span class="text-gray-500">多一份耐心與微笑，少一份偏見</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl shadow-sm border border-blue-100 text-center">
+                                <span class="font-bold text-blue-600 block mb-1">挖掘潛能</span>
+                                <span class="text-gray-500">鼓勵參與藝術、繪畫與社會活動</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl shadow-sm border border-blue-100 text-center">
+                                <span class="font-bold text-blue-600 block mb-1">社區支持</span>
+                                <span class="text-gray-500">支持澳門當地特奧會與相關機構</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Blessing Wall Section -->
+        <section id="blessings" class="mt-16 bg-white rounded-3xl p-6 md:p-8 shadow-lg border border-gray-100 space-y-6">
+            <div class="text-center space-y-2">
+                <span class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-xs font-semibold">溫情互動</span>
+                <h3 class="text-2xl font-bold text-gray-900">為高賜榮一家送上溫暖祝福</h3>
+                <p class="text-xs md:text-sm text-gray-500">每一份鼓勵，都是支持這個平凡家庭繼續溫暖前行的力量</p>
+            </div>
+
+            <!-- Interactive Hearts Count -->
+            <div class="flex justify-center items-center gap-6 py-4">
+                <button onclick="addHeart()" class="group relative px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition flex items-center gap-2">
+                    <i class="fa-solid fa-heart text-lg group-hover:animate-bounce"></i>
+                    <span>點讚送心意</span>
+                    <span id="heart-count" class="bg-white/20 px-2.5 py-0.5 rounded-full text-xs font-mono">1,288</span>
+                </button>
+            </div>
+
+            <!-- Message Form -->
+            <div class="max-w-xl mx-auto space-y-3">
+                <div class="flex gap-2">
+                    <input type="text" id="blessing-input" placeholder="寫下對賜榮哥、鳳香媽媽或蔥頭的祝福吧..." class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 text-xs md:text-sm focus:outline-none focus:border-macau-green transition">
+                    <button onclick="submitBlessing()" class="px-5 py-2.5 bg-macau-green hover:bg-emerald-800 text-white font-semibold rounded-xl text-xs md:text-sm shadow transition">
+                        發送
+                    </button>
+                </div>
+            </div>
+
+            <!-- Messages Stream -->
+            <div id="blessing-list" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 text-xs">
+                <div class="p-4 rounded-2xl bg-amber-50/60 border border-amber-100 space-y-2">
+                    <div class="flex justify-between text-gray-400">
+                        <span class="font-semibold text-gray-700">澳門街坊 街坊阿姨</span>
+                        <span>剛才</span>
+                    </div>
+                    <p class="text-gray-600">「常常坐賜榮哥開的33號車，駕駛技術非常穩！祝你們全家身體健康，蔥頭越來越棒！」</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 space-y-2">
+                    <div class="flex justify-between text-gray-400">
+                        <span class="font-semibold text-gray-700">澳門巴士迷 Club</span>
+                        <span>10分鐘前</span>
+                    </div>
+                    <p class="text-gray-600">「向所有默默守護澳門道路交通的司機致敬！高大哥加油！」</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-pink-50/60 border border-pink-100 space-y-2">
+                    <div class="flex justify-between text-gray-400">
+                        <span class="font-semibold text-gray-700">義工小童</span>
+                        <span>1小時前</span>
+                    </div>
+                    <p class="text-gray-600">「蔥頭畫的巴士超級漂亮！色彩好有感染力，期待看到你更多的畫作！」</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-8 px-4 mt-12 text-center text-xs space-y-2">
+        <p class="text-gray-300">我們的澳門故事 · 高家三口（高賜榮 · 馬鳳香 · 高子聰）</p>
+        <p class="text-gray-500">關愛身邊每一個努力生活的平凡人 · 關注唐氏綜合症群體</p>
+        <p class="text-gray-600">© 2026 Macau Family Stories Interactive Experience</p>
+    </footer>
+
+    <!-- MODAL 1: Bus Driving Simulator -->
+    <div id="modal-bus" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 space-y-5 relative shadow-2xl animate-fade-in">
+            <button onclick="closeModal('modal-bus')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-macau-green text-white flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-bus"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900">高賜榮 · 澳門巴士模擬發車</h3>
+                    <p class="text-xs text-gray-500">體驗賜榮哥日常行駛的澳門經典路線</p>
+                </div>
+            </div>
+
+            <!-- Route Info -->
+            <div class="bg-emerald-50 rounded-2xl p-4 border border-emerald-100 text-xs space-y-2">
+                <div class="flex justify-between font-bold text-emerald-900">
+                    <span>當前路線：33號線</span>
+                    <span>起點：筷子基總站 ➔ 終點：氹仔官也街</span>
+                </div>
+                <div class="w-full bg-emerald-200 h-2 rounded-full overflow-hidden">
+                    <div id="bus-progress" class="bg-macau-green h-full w-0 transition-all duration-500"></div>
+                </div>
+                <p id="bus-status-text" class="text-gray-600 font-medium">準備發車，請確認乘客已平穩就座...</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 text-xs">
+                <button onclick="driveBusStep('關閘 / 筷子基')" class="p-3 bg-gray-100 hover:bg-emerald-100 hover:text-macau-green rounded-xl font-medium transition text-left">
+                    <i class="fa-solid fa-location-dot text-macau-green mr-1"></i> 1. 筷子基總站發車
+                </button>
+                <button onclick="driveBusStep('新馬路 / 亞馬喇前地')" class="p-3 bg-gray-100 hover:bg-emerald-100 hover:text-macau-green rounded-xl font-medium transition text-left">
+                    <i class="fa-solid fa-location-dot text-macau-green mr-1"></i> 2. 駛經新馬路繁忙路段
+                </button>
+                <button onclick="driveBusStep('嘉樂庇總督大橋')" class="p-3 bg-gray-100 hover:bg-emerald-100 hover:text-macau-green rounded-xl font-medium transition text-left">
+                    <i class="fa-solid fa-bridge text-macau-green mr-1"></i> 3. 跨越澳氹大橋
+                </button>
+                <button onclick="driveBusStep('氹仔官也街')" class="p-3 bg-gray-100 hover:bg-emerald-100 hover:text-macau-green rounded-xl font-medium transition text-left">
+                    <i class="fa-solid fa-flag-checkered text-macau-green mr-1"></i> 4. 安全抵達官也街
+                </button>
+            </div>
+
+            <div class="text-center pt-2">
+                <button onclick="closeModal('modal-bus')" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-xs font-semibold">關閉體驗</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Mother's Recipe Modal -->
+    <div id="modal-recipe" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 space-y-5 relative shadow-2xl">
+            <button onclick="closeModal('modal-recipe')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-bowl-rice"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900">馬鳳香 · 媽媽的家常老火湯食譜</h3>
+                    <p class="text-xs text-gray-500">呵護一家三口健康溫暖的秘密</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 text-xs">
+                <div class="p-4 rounded-2xl bg-amber-50 border border-amber-100 space-y-2">
+                    <h4 class="font-bold text-amber-900 text-sm"><i class="fa-solid fa-fire-burner text-amber-600 mr-1"></i> 拿手招牌：日月魚花生豬骨湯</h4>
+                    <p class="text-gray-600">【功效】健脾開胃、補充體力，最適合需要長時間專注開車的賜榮，以及成長中的蔥頭。</p>
+                    <div class="pt-2 border-t border-amber-200/60 font-mono text-gray-500">
+                        食材：日月魚 50g、紅衣花生 100g、新鮮豬骨 500g、蜜棗 2粒、陳皮 1小角。
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-orange-50 border border-orange-100 space-y-2">
+                    <h4 class="font-bold text-orange-900 text-sm"><i class="fa-solid fa-heart-pulse text-orange-600 mr-1"></i> 媽媽的叮嚀：照顧蔥頭的小習慣</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>每天定時補水，準備好新鮮水果切片。</li>
+                        <li>睡前進行15分鐘溫柔的拉伸與說故事時間。</li>
+                        <li>多讚美，給予明確簡短的指示。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center pt-2">
+                <button onclick="closeModal('modal-recipe')" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-xs font-semibold">收入食譜</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Congtou's Interactive Art Canvas -->
+    <div id="modal-gallery" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 space-y-5 relative shadow-2xl">
+            <button onclick="closeModal('modal-gallery')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-pink-500 text-white flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-paint-brush"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900">蔥頭的彩虹畫板</h3>
+                    <p class="text-xs text-gray-500">與蔥頭一起塗鴉，用畫筆傳遞愛</p>
+                </div>
+            </div>
+
+            <!-- Canvas Element -->
+            <div class="space-y-2">
+                <div class="border-2 border-dashed border-pink-300 rounded-2xl overflow-hidden bg-white flex justify-center items-center">
+                    <canvas id="paint-canvas" width="450" height="220" class="cursor-crosshair w-full h-[220px] touch-none"></canvas>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-500">選擇顏色：</span>
+                        <button onclick="setCanvasColor('#007A5E')" class="w-6 h-6 rounded-full bg-macau-green border-2 border-white shadow"></button>
+                        <button onclick="setCanvasColor('#F59E0B')" class="w-6 h-6 rounded-full bg-amber-500 border-2 border-white shadow"></button>
+                        <button onclick="setCanvasColor('#EC4899')" class="w-6 h-6 rounded-full bg-pink-500 border-2 border-white shadow"></button>
+                        <button onclick="setCanvasColor('#3B82F6')" class="w-6 h-6 rounded-full bg-blue-500 border-2 border-white shadow"></button>
+                    </div>
+                    <button onclick="clearCanvas()" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-xs">
+                        <i class="fa-solid fa-rotate-left mr-1"></i>清空畫板
+                    </button>
+                </div>
+            </div>
+
+            <div class="text-center pt-2">
+                <button onclick="saveCanvasArt()" class="px-6 py-2.5 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-xs font-semibold shadow">
+                    <i class="fa-solid fa-heart mr-1"></i> 送給蔥頭作為禮物
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // State management
+        let currentTab = 'gao-cirong';
+        let heartCount = 1288;
+        let isAudioPlaying = false;
+        let audioCtx = null;
+        let busStep = 0;
+
+        // Switch profile tabs
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.profile-section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`person-${tabId}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        // Modal controls
+        function openBusSimulator() {
+            document.getElementById('modal-bus').classList.remove('hidden');
+        }
+
+        function openRecipeModal() {
+            document.getElementById('modal-recipe').classList.remove('hidden');
+        }
+
+        function openGalleryModal() {
+            document.getElementById('modal-gallery').classList.remove('hidden');
+            initCanvas();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Bus Driving Simulator Step Logic
+        function driveBusStep(stationName) {
+            busStep = (busStep + 1) % 5;
+            const progress = document.getElementById('bus-progress');
+            const statusText = document.getElementById('bus-status-text');
+
+            const pct = busStep * 25;
+            progress.style.width = pct + '%';
+
+            if (busStep === 0) {
+                statusText.innerText = '準備發车，請確認乘客已平穩就座...';
+            } else {
+                statusText.innerText = `賜榮哥正穩健駕駛中 ➔ 當前停靠站：【${stationName}】。乘客平安！`;
+            }
+
+            // Play bus chime sound
+            playChimeSound(440 + busStep * 80);
+        }
+
+        // Heart Counter
+        function addHeart() {
+            heartCount++;
+            document.getElementById('heart-count').innerText = heartCount.toLocaleString();
+            playChimeSound(600);
+        }
+
+        // Submit Blessing
+        function submitBlessing() {
+            const input = document.getElementById('blessing-input');
+            const val = input.value.trim();
+            if (!val) return;
+
+            const list = document.getElementById('blessing-list');
+            const newCard = document.createElement('div');
+            newCard.className = 'p-4 rounded-2xl bg-pink-50/60 border border-pink-100 space-y-2 transition animate-fade-in';
+            newCard.innerHTML = `
+                <div class="flex justify-between text-gray-400">
+                    <span class="font-semibold text-gray-700">熱心網民</span>
+                    <span>剛剛</span>
+                </div>
+                <p class="text-gray-600">「${escapeHtml(val)}」</p>
+            `;
+            list.prepend(newCard);
+            input.value = '';
+            addHeart();
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/[&<>"']/g, function(m) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+            });
+        }
+
+        // Canvas Logic for Congtou's Art
+        let canvas, ctx, painting = false, color = '#EC4899';
+
+        function initCanvas() {
+            canvas = document.getElementById('paint-canvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = color;
+
+            // Draw initial background/prompt
+            ctx.fillStyle = "#FAF5F8";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#CBD5E1";
+            ctx.font = "14px Microsoft JhengHei";
+            ctx.fillText("在畫板上畫一朵花或小巴士，送給蔥頭...", 110, 110);
+
+            // Mouse events
+            canvas.onmousedown = (e) => { startDraw(e); };
+            canvas.onmouseup = () => { stopDraw(); };
+            canvas.onmousemove = (e) => { draw(e); };
+
+            // Touch events
+            canvas.ontouchstart = (e) => { startDraw(e.touches[0]); };
+            canvas.ontouchend = () => { stopDraw(); };
+            canvas.ontouchmove = (e) => { draw(e.touches[0]); };
+        }
+
+        function setCanvasColor(c) {
+            color = c;
+            if (ctx) ctx.strokeStyle = color;
+        }
+
+        function startDraw(e) {
+            painting = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function stopDraw() {
+            painting = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!painting) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+        }
+
+        function clearCanvas() {
+            if (!ctx) return;
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function saveCanvasArt() {
+            alert('感謝您的繪畫！已將您的畫作心意送給高子聰（蔥頭）！');
+            closeModal('modal-gallery');
+        }
+
+        // Audio Chime Synthesizer
+        function playChimeSound(freq) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } catch (e) {
+                // Audio context block handling
+            }
+        }
+
+        function toggleAudio() {
+            isAudioPlaying = !isAudioPlaying;
+            const icon = document.getElementById('audio-icon');
+            const text = document.getElementById('audio-text');
+
+            if (isAudioPlaying) {
+                icon.className = "fa-solid fa-volume-high";
+                text.innerText = "背景音樂：播放中";
+                playChimeSound(523.25); // C5 note warmth
+            } else {
+                icon.className = "fa-solid fa-volume-xmark";
+                text.innerText = "背景音韻";
+            }
+        }
+    </script>
+</body>
+</html>
